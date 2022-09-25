@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DemoIgnite</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">6q4oAIzMo3cYuQu-4kA-oFgsQvqL6ljKAWSBO</string>
 </resources>

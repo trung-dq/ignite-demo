@@ -19,6 +19,7 @@ import { AppNavigator, useNavigationPersistence } from "./navigators"
 import { RootStore, RootStoreProvider, setupRootStore } from "./models"
 import { ToggleStorybook } from "../storybook/toggle-storybook"
 import { ErrorBoundary } from "./screens/error/error-boundary"
+import codePush from "react-native-code-push";
 
 // This puts screens in a native ViewController or Activity. If you want fully native
 // stack navigation, use `createNativeStackNavigator` in place of `createStackNavigator`:
@@ -29,7 +30,7 @@ export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 /**
  * This is the root component of our app.
  */
-function App() {
+let App = () => {
   const [rootStore, setRootStore] = useState<RootStore | undefined>(undefined)
   const {
     initialNavigationState,
@@ -70,4 +71,9 @@ function App() {
   )
 }
 
-export default App
+const codePushOptions = {
+  checkFrequency: codePush.CheckFrequency.ON_APP_START,
+  installMode: codePush.InstallMode.IMMEDIATE
+}
+
+export default App = codePush(codePushOptions)(App)

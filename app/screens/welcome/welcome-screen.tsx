@@ -110,6 +110,9 @@ export const WelcomeScreen: FC<StackScreenProps<NavigatorParamList, "welcome">> 
             For everyone else, this is where you'll see a live preview of your fully functioning app
             using Ignite.
           </Text>
+          <Text style={CONTENT}>
+            Code Push Hello!
+          </Text>
         </Screen>
         <SafeAreaView style={FOOTER}>
           <View style={FOOTER_CONTENT}>
