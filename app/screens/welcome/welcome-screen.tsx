@@ -1,5 +1,5 @@
 import React, { FC } from "react"
-import { View, ViewStyle, TextStyle, ImageStyle, SafeAreaView } from "react-native"
+import { View, ViewStyle, TextStyle, ImageStyle, SafeAreaView, FlatList } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { observer } from "mobx-react-lite"
 import {
@@ -48,6 +48,7 @@ const TITLE: TextStyle = {
   fontSize: 28,
   lineHeight: 38,
   textAlign: "center",
+  marginLeft: 10,
 }
 const ALMOST: TextStyle = {
   ...TEXT,
@@ -59,8 +60,8 @@ const BOWSER: ImageStyle = {
   alignSelf: "center",
   marginVertical: spacing[5],
   maxWidth: "100%",
-  width: 343,
-  height: 230,
+  width: 70,
+  height: 75,
 }
 const CONTENT: TextStyle = {
   ...TEXT,
@@ -89,30 +90,31 @@ const FOOTER_CONTENT: ViewStyle = {
 export const WelcomeScreen: FC<StackScreenProps<NavigatorParamList, "welcome">> = observer(
   ({ navigation }) => {
     const nextScreen = () => navigation.navigate("demo")
-
+    const renderItem = ({ item, index }: { item: any, index: number }) => {
+      return (
+       <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+         <Image source={bowserLogo} style={BOWSER} />
+         <Text style={TITLE} text={`Demo code push ${index}`} />
+       </View>
+      );
+    };
     return (
       <View testID="WelcomeScreen" style={FULL}>
         <GradientBackground colors={["#422443", "#281b34"]} />
-        <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
+        <Screen style={CONTAINER} backgroundColor={color.transparent}>
           <Header headerTx="welcomeScreen.poweredBy" style={HEADER} titleStyle={HEADER_TITLE} />
           <Text style={TITLE_WRAPPER}>
             <Text style={TITLE} text="Your new app, " />
             <Text style={ALMOST} text="almost" />
             <Text style={TITLE} text="!" />
           </Text>
-          <Text style={TITLE} preset="header" tx="welcomeScreen.readyForLaunch" />
-          <Image source={bowserLogo} style={BOWSER} />
-          <Text style={CONTENT}>
-            This probably isn't what your app is going to look like. Unless your designer handed you
-            this screen and, in that case, congrats! You're ready to ship.
-          </Text>
-          <Text style={CONTENT}>
-            For everyone else, this is where you'll see a live preview of your fully functioning app
-            using Ignite.
-          </Text>
-          <Text style={CONTENT}>
-            Code Push Hello!
-          </Text>
+          <Text style={TITLE} preset="header" text="CODE PUSH" />
+          <FlatList
+            keyExtractor={(index) => `${index}-demo-code-push`}
+            showsVerticalScrollIndicator={false}
+            data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+            renderItem={renderItem}
+          />
         </Screen>
         <SafeAreaView style={FOOTER}>
           <View style={FOOTER_CONTENT}>
